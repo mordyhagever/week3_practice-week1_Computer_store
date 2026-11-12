@@ -14,3 +14,7 @@ products = [
     "stock": 10,
     "active": True}
 ]
+
+sales = [
+
+]

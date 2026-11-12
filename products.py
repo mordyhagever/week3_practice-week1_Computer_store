@@ -3,6 +3,8 @@ from db import products
 
 def get_next_id():
     last_product = products[-1]
+    if not last_product:
+        return 1
     return last_product["id"] + 1
 
 
@@ -61,7 +63,7 @@ def search_product():
     print("""
     What's your search type?
     1. search by id
-    2. search ny name or partly name
+    2. search by name or partly name
     3. search by category
     """)
     choose = input()
