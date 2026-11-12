@@ -69,4 +69,12 @@ def update_product_checker(number):
         return False
     return True
 
+def inventory_choose_checker(number):
+    if not is_int(number):
+        return False
+    number = int(number)
+    if number < 1 or number > 7:
+        return False
+    return True
+
 

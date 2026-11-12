@@ -1,4 +1,6 @@
 from validations import main_choose_checker
+from products import products_manager
+from inventory import inventory_manager
 
 def print_menu():
     print("""
@@ -10,7 +12,7 @@ def print_menu():
 2. Inventory Management
 3. Sales Management
 4. Reports
-5. Exit
+5. Back to main menu
 
 Choose an option:
     """)
@@ -22,9 +24,9 @@ Choose an option:
 
 
 def active1():
-    pass
+    print(products_manager())
 def active2():
-    pass
+    print(inventory_manager())
 def active3():
     pass
 def active4():
@@ -43,3 +45,5 @@ def main_menu():
             active4()
         choose = print_menu()
     return "Progress has finished successfully"
+
+main_menu()

@@ -27,7 +27,7 @@ def add_product():
     product_name = input("Enter product name: ")
     while not check_str(product_name):
         product_name = input("Enter a non empty name: ")
-    category = input("Enter category")
+    category = input("Enter category: ")
     while not check_str(category):
         category = input("Enter a non empty category: ")
     price = input("Enter product's price: ")
@@ -37,7 +37,7 @@ def add_product():
         price = int(price)
     if is_float(price):
         price = float(price)
-    quantity = input("Enter quantity")
+    quantity = input("Enter quantity: ")
     while not is_not_negative(quantity):
         quantity = input("quantity has to be non negative: ")
     quantity = int(quantity)
@@ -47,10 +47,7 @@ def add_product():
     product_data["category"] = category
     product_data["price"] = price
     product_data["stock"] = quantity
-    if quantity > 0:
-        product_data["active"] = True
-    else:
-        product_data["active"] = False
+    product_data["active"] = True
     return product_data
 
 def display_all_products():
@@ -148,20 +145,20 @@ def update_product():
             product_to_update["price"] = new_price
             print(f"product number {product_id} price, changed to {new_price}")
         elif choose == 4:
-            current_status = product_to_update["status"]
+            current_status = product_to_update["active"]
             print(f"product status is now {current_status}, do you wanna change it? [Y/N]")
             user_choice = input()
             while user_choice not in ["Y", "N"]:
                 user_choice = input("Please choose [Y/N]")
             if user_choice == "Y":
-                product_to_update["status"] = not current_status
-                print("status has changed successfully")
-            print("status stayed the same as you asked.")
+                product_to_update["active"] = not current_status
+                print("\nstatus has changed successfully!")
+            print("\nstatus stayed the same as you asked.")
     for i in range(len(products)):
         if products[i]["id"] == product_id:
             products.pop(i)
             products.insert(i, product_to_update)
-            return "Update progres has finished"
+            return "\nUpdate progres has finished"
 
     return "update product isn''t working if it reached here"
 
@@ -171,16 +168,16 @@ def delete_product():
     while not is_int(product_id):
         product_id = input("only a positive number: ")
     product_id = int(product_id)
-    decision = input("Are you sure that you want to delete this project forever? [Y/N]")
+    decision = input("Are you sure that you want to delete this project forever? [Y/N]\n")
     while not check_str(decision) or (decision != "Y" and decision != "N"):
-        decision = input("Enter your correct answer [Y/N]")
+        decision = input("Enter your correct answer [Y/N]\n")
     if decision == "Y":
         for item in products:
             if item["id"] == product_id:
                 products.remove(item)
-                return "product was deleted"
+                return "\nproduct was deleted"
     else:
-        return "Didn't delete anything"
+        return "\nDidn't delete anything"
     return "You're not supposed to get here"
 
 
@@ -191,9 +188,13 @@ def products_manager():
     choose = print_product_management()
     while choose != 6:
         if choose == 1:
-            print(add_product())
+            new_product = add_product()
+            products.append(new_product)
+            print("\nProduct was added successfully!!!")
         elif choose == 2:
-            print(display_all_products())
+             everything = display_all_products()
+             for item in everything:
+                 print(item)
         elif choose == 3:
             print(search_product())
         elif choose == 4:
