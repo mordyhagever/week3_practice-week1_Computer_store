@@ -12,7 +12,7 @@ def print_inventory_menu():
     4. decrease a product stock
     5. show out of stock products
     6. show low stock products
-    7. Exit
+    7. back to main menu
     """)
     choose = input()
     while not inventory_choose_checker(choose):

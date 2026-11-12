@@ -77,4 +77,12 @@ def inventory_choose_checker(number):
         return False
     return True
 
+def discount_checker(number):
+    if not is_int_and_positive(number):
+        return False
+    number = int(number)
+    if number > 100:
+        return False
+    return True
+
 

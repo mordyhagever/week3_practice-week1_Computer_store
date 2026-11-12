@@ -12,7 +12,7 @@ def print_menu():
 2. Inventory Management
 3. Sales Management
 4. Reports
-5. Back to main menu
+5. Exit
 
 Choose an option:
     """)
