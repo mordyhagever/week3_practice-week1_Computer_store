@@ -51,4 +51,12 @@ def search_product_checker(number):
         return False
     return True
 
+def update_product_checker(number):
+    if not is_int(number):
+        return False
+    number = int(number)
+    if number < 1 or number > 4:
+        return False
+    return True
+
 

@@ -48,7 +48,6 @@ def add_product():
         product_data["active"] = True
     else:
         product_data["active"] = False
-    products.append(product_data)
     return product_data
 
 def display_all_products():
@@ -95,6 +94,71 @@ def search_product():
             if item["category"] == search_category:
                 print(item)
         return "Finished the search"
+
+def update_product():
+    product_id = input("what product do you want to update? [by id]")
+    while not is_int_and_positive(product_id):
+        product_id = input("Only a positive id number")
+    product_id = int(product_id)
+    found = False
+    product_to_update = None
+    for item in products:
+        if item["id"] == product_id:
+            found = True
+            product_to_update = item
+            break
+    if not found:
+        return "Sorry, couldn't find the product. please try again later"
+    else:
+        print("""
+        Product found!!!
+        What do you wanna update in the product?
+        1. name
+        2. category
+        3. price
+        4. status
+        """)
+        choose = input()
+        while not update_product_checker(choose):
+            choose = input("Only a number form the menu: ")
+        choose = int(choose)
+        if choose == 1:
+            new_name = input("Enter new name from the product you chose: ")
+            while not check_str(new_name):
+                new_name = input("Only a non empty name")
+            product_to_update["name"] = new_name
+            print(f"product number {product_id} name, changed to {new_name}")
+        elif choose == 2:
+            new_category = input("Enter a new category name for the product you chose: ")
+            while not check_str(new_category):
+                new_category = input("Only a non empty name: ")
+            product_to_update["category"] = new_category
+            print(f"product number {product_id} category, changed to {new_category}")
+        elif choose == 3:
+            new_price = input("Enter a new price fot the product you chose: ")
+            while not is_int_and_positive(new_price):
+                new_price = input("Only a positive price: ")
+            new_price = int(new_price)
+            product_to_update["price"] = new_price
+            print(f"product number {product_id} price, changed to {new_price}")
+        elif choose == 4:
+            current_status = product_to_update["status"]
+            print(f"product status is now {current_status}, do you wanna change it? [Y/N]")
+            user_choice = input()
+            while user_choice not in ["Y", "N"]:
+                user_choice = input("Please choose [Y/N]")
+            if user_choice == "Y":
+                product_to_update["status"] = not current_status
+                print("status has changed successfully")
+            print("status stayed the same as you asked.")
+    for i in range(products):
+        if products[i]["id"] == product_id:
+            products.pop(i)
+            products.append(product_to_update)
+            return "Update progres has finished"
+
+    return "update product isn''t working if it reached here"
+
 
 
 
