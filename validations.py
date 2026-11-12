@@ -6,6 +6,13 @@ def is_int(number):
     except ValueError:
         return False
 
+def is_float(number):
+    try:
+        float(number)
+        return True
+    except ValueError:
+        return False
+
 def is_not_negative(number):
     if not is_int(number):
         return False
@@ -15,9 +22,12 @@ def is_not_negative(number):
     return True
 
 def is_int_and_positive(number):
-    if not is_int(number):
+    if not is_int(number) and not is_float(number):
         return False
-    number = int(number)
+    if is_int(number):
+        number = int(number)
+    if is_float(number):
+        number = float(number)
     if number < 1:
         return False
     return True

@@ -33,7 +33,10 @@ def add_product():
     price = input("Enter product's price: ")
     while not is_int_and_positive(price):
         price = input("only a positive number: ")
-    price = int(price)
+    if is_int(price):
+        price = int(price)
+    if is_float(price):
+        price = float(price)
     quantity = input("Enter quantity")
     while not is_not_negative(quantity):
         quantity = input("quantity has to be non negative: ")
@@ -96,9 +99,9 @@ def search_product():
         return "Finished the search"
 
 def update_product():
-    product_id = input("what product do you want to update? [by id]")
+    product_id = input("what product do you want to update? [by id]: ")
     while not is_int_and_positive(product_id):
-        product_id = input("Only a positive id number")
+        product_id = input("Only a positive id number: ")
     product_id = int(product_id)
     found = False
     product_to_update = None
@@ -120,12 +123,12 @@ def update_product():
         """)
         choose = input()
         while not update_product_checker(choose):
-            choose = input("Only a number form the menu: ")
+            choose = input("Only a number from the menu: ")
         choose = int(choose)
         if choose == 1:
-            new_name = input("Enter new name from the product you chose: ")
+            new_name = input("Enter new name for the product you chose: ")
             while not check_str(new_name):
-                new_name = input("Only a non empty name")
+                new_name = input("Only a non empty name: ")
             product_to_update["name"] = new_name
             print(f"product number {product_id} name, changed to {new_name}")
         elif choose == 2:
@@ -138,7 +141,10 @@ def update_product():
             new_price = input("Enter a new price fot the product you chose: ")
             while not is_int_and_positive(new_price):
                 new_price = input("Only a positive price: ")
-            new_price = int(new_price)
+            if is_int(new_price):
+                new_price = int(new_price)
+            if is_float(new_price):
+                new_price = float(new_price)
             product_to_update["price"] = new_price
             print(f"product number {product_id} price, changed to {new_price}")
         elif choose == 4:
@@ -151,13 +157,31 @@ def update_product():
                 product_to_update["status"] = not current_status
                 print("status has changed successfully")
             print("status stayed the same as you asked.")
-    for i in range(products):
+    for i in range(len(products)):
         if products[i]["id"] == product_id:
             products.pop(i)
-            products.append(product_to_update)
+            products.insert(i, product_to_update)
             return "Update progres has finished"
 
     return "update product isn''t working if it reached here"
+
+
+def delete_product():
+    product_id = input("Enter id number to delete:")
+    while not is_int(product_id):
+        product_id = input("only a positive number: ")
+    product_id = int(product_id)
+    decision = input("Are you sure that you want to delete this project forever? [Y/N]")
+    while not check_str(decision) or (decision != "Y" and decision != "N"):
+        decision = input("Enter your correct answer [Y/N]")
+    if decision == "Y":
+        for item in products:
+            if item["id"] == product_id:
+                products.remove(item)
+                return "product was deleted"
+    else:
+        return "Didn't delete anything"
+    return "You're not supposed to get here"
 
 
 
@@ -165,3 +189,16 @@ def update_product():
 
 def products_manager():
     choose = print_product_management()
+    while choose != 6:
+        if choose == 1:
+            print(add_product())
+        elif choose == 2:
+            print(display_all_products())
+        elif choose == 3:
+            print(search_product())
+        elif choose == 4:
+            print(update_product())
+        elif choose == 5:
+            print(delete_product())
+        choose = print_product_management()
+    return "Back to main menu"
