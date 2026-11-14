@@ -73,8 +73,10 @@ def update_quantity(cart):
     while not is_int(quantity):
         quantity = input("Only a number: ")
     quantity = int(quantity)
+    found = False
     for product in cart:
         if product["product_id"] == item:
+            found = True
             if action == "+":
                 for stuff in products:
                     if item == stuff["id"]:
@@ -88,10 +90,9 @@ def update_quantity(cart):
                     product["quantity"] -= quantity
                 else:
                     return "Not enough in stock!!!"
-        else:
-            return "Product isn't in cart"
-
-    return "Item has been updated successfully"
+    if not found:
+        return "Product isn't in cart"
+    return "updated successfully!!!"
 
 def remove_item(cart):
     item_id = input("Enter a product id to remove from cart: ")
@@ -211,7 +212,7 @@ def sales_manager():
     ========= SALE SUMMARY =========
     """)
     for item in new_cart:
-        print(f"{item["name"]}:    {item["quantity"]} x {item["unit_price"]} = {item["total"]}")
+        print(f"{item["name"]}:    {item["quantity"]} x {item["unit_price"]} = {item["quantity"] * item["unit_price"]}")
     print("------------------------------")
     print(f"Subtotal:       {sale["subtotal"]}")
     print(f"Discount:       {sale["discount"]}%")
