@@ -134,7 +134,8 @@ def print_menu():
     4. calculate cart checkout
     5. Enter a discount if you want 
     6. show cart
-    7. Close the sale
+    7. cancel sale
+    8. Close the sale
     """)
     choose = input("Enter an action from the menu: ")
     while not sales_choose_checker(choose):
@@ -163,7 +164,7 @@ def sales_manager():
     new_cart = new_sale()
     final_price = None
     choose = print_menu()
-    while choose != 7:
+    while choose != 8:
         if choose == 1:
             new_item = add_items(new_cart)
             if not isinstance(new_item, dict):
@@ -190,7 +191,11 @@ def sales_manager():
             all_items = show_cart(new_cart)
             for item in all_items:
                 print(item)
+        elif choose == 7:
+            return "\ncart is closed and sale is cancelled"
         choose = print_menu()
+    if not new_cart:
+        return "There's nothing in the cart, try again"
     final_price = calc_cart(new_cart)
     update_products(new_cart)
     sale["items"] = new_cart
@@ -213,7 +218,6 @@ def sales_manager():
     print(f"Total:          {sale["total"]}")
 
     return "sale has been closed and updated successfully"
-
 
 
 

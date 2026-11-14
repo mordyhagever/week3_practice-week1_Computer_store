@@ -28,5 +28,6 @@ sales = [
                     ],
             "subtotal": 300.0,
             "discount": 0.0,
-            "total": 300.0}
+            "total": 300.0
+            }
 ]

@@ -89,6 +89,14 @@ def sales_choose_checker(number):
     while not is_int_and_positive(number):
         return False
     number = int(number)
+    if number > 8:
+        return False
+    return True
+
+def reports_choose_checker(number):
+    while not is_int_and_positive(number):
+        return False
+    number = int(number)
     if number > 7:
         return False
     return True
