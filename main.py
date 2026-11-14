@@ -1,6 +1,7 @@
 from validations import main_choose_checker
 from products import products_manager
 from inventory import inventory_manager
+from sales import sales_manager
 
 def print_menu():
     print("""
@@ -28,7 +29,7 @@ def active1():
 def active2():
     print(inventory_manager())
 def active3():
-    pass
+    print(sales_manager())
 def active4():
     pass
 

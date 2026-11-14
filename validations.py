@@ -85,4 +85,12 @@ def discount_checker(number):
         return False
     return True
 
+def sales_choose_checker(number):
+    while not is_int_and_positive(number):
+        return False
+    number = int(number)
+    if number > 7:
+        return False
+    return True
+
 
